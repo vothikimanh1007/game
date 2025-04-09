@@ -12,9 +12,10 @@ body {
     color: #333;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Align to top to avoid space at the bottom */
     height: 100vh;
     flex-direction: column;
+    padding: 20px;
 }
 
 /* Container Styles */
@@ -23,9 +24,10 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 90%;
+    width: 100%;
     max-width: 600px;
-    text-align: left; /* Align all text left */
+    text-align: left; /* Align text to the left */
+    margin-bottom: 20px;
 }
 
 /* Title Styles */
@@ -64,20 +66,34 @@ button.btn:hover {
     background-color: #45a049;
 }
 
-/* Answers Section Styles */
+/* Question & Answers Section Styles */
+#question {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    word-wrap: break-word; /* Ensure text wraps properly */
+    hyphens: auto; /* Automatically add hyphenation to long words */
+    margin-bottom: 20px;
+}
+
 .answers-container {
     margin-top: 20px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columns for options */
+    gap: 20px; /* Space between options */
+    justify-items: start; /* Left align the options */
 }
 
 .answers-container div {
-    margin-bottom: 15px;
     font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 label {
     cursor: pointer;
+    margin-left: 10px; /* Space between radio button and text */
 }
 
 /* Result and Leaderboard Styles */
@@ -104,5 +120,13 @@ ul {
 
     input, button {
         width: 100%;
+    }
+
+    .answers-container {
+        grid-template-columns: 1fr; /* Stack answers vertically on small screens */
+    }
+
+    #question {
+        font-size: 1rem;
     }
 }
