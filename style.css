@@ -1,0 +1,106 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* Container Styles */
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Title Styles */
+h1, h2 {
+    font-size: 2rem;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+/* Input & Button Styles */
+.input-container {
+    margin-bottom: 20px;
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    font-size: 1.1rem;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+button.btn {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.btn:hover {
+    background-color: #45a049;
+}
+
+/* Answers Section Styles */
+.answers-container {
+    margin-top: 20px;
+}
+
+.answers-container div {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+label {
+    cursor: pointer;
+}
+
+/* Result and Leaderboard Styles */
+#result, #leaderboard {
+    margin-top: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+    font-size: 1.1rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1, h2 {
+        font-size: 1.5rem;
+    }
+
+    input, button {
+        width: 100%;
+    }
+}
