@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="welcome">
+        <h1>Welcome to the Quiz Game!</h1>
+        <input type="text" id="studentName" placeholder="Enter your name" />
+        <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <div id="quizContainer" style="display: none;">
+        <h2>Quiz</h2>
+        <p id="question"></p>
+        <div id="answers"></div>
+        <button onclick="nextQuestion()">Next Question</button>
+    </div>
+
+    <div id="result" style="display: none;">
+        <h2>Game Over</h2>
+        <p id="score"></p>
+        <button onclick="submitScore()">Submit Score</button>
+    </div>
+
+    <div id="leaderboard" style="display: none;">
+        <h2>Leaderboard</h2>
+        <ul id="scoreBoard"></ul>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
