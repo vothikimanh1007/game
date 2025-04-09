@@ -1,4 +1,4 @@
-let currentQuestion = 0;
+let currentQuestionIndex = 0;
 let score = 0;
 let studentName = '';
 let questions = [
@@ -269,7 +269,8 @@ let questions = [
     }	
 ];
 
-let leaderboard = [];
+// Load leaderboard from localStorage if available
+let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
 
 function startGame() {
     studentName = document.getElementById("studentName").value;
@@ -277,53 +278,82 @@ function startGame() {
         document.getElementById("welcome").style.display = 'none';
         document.getElementById("quizContainer").style.display = 'block';
         loadQuestion();
+        showLeaderboard(); // Show the current leaderboard on the game start
     } else {
         alert("Please enter your name!");
     }
 }
 
 function loadQuestion() {
-    let q = questions[currentQuestion];
-    document.getElementById("question").textContent = q.question;
-
-    let answersHtml = '';
-    q.options.forEach((option, index) => {
-        answersHtml += `<div><input type="radio" name="answer" value="${index}" id="answer${index}">
-                        <label for="answer${index}">${option}</label></div>`;
+    let question = questions[currentQuestionIndex];
+    let questionHTML = `
+        <div class="question">
+            <h3>${question.question}</h3>
+            <div class="answers-container">
+    `;
+    
+    question.options.forEach((option, index) => {
+        questionHTML += `
+            <div>
+                <input type="radio" name="question" value="${index}" id="answer${index}">
+                <label for="answer${index}">${option}</label>
+            </div>
+        `;
     });
-    document.getElementById("answers").innerHTML = answersHtml;
+
+    questionHTML += `
+        </div>
+        </div>
+    `;
+
+    document.getElementById("questionsContainer").innerHTML = questionHTML;
 }
 
 function nextQuestion() {
-    let selectedAnswer = document.querySelector('input[name="answer"]:checked');
-    if (selectedAnswer) {
-        let answerIndex = parseInt(selectedAnswer.value);
-        if (answerIndex === questions[currentQuestion].answer) {
-            score += 10;
-        }
-        currentQuestion++;
-        if (currentQuestion < questions.length) {
-            loadQuestion();
-        } else {
-            document.getElementById("quizContainer").style.display = 'none';
-            document.getElementById("result").style.display = 'block';
-            document.getElementById("score").textContent = `Your score: ${score}`;
+    let selectedOption = document.querySelector('input[name="question"]:checked');
+    if (selectedOption) {
+        let answerIndex = parseInt(selectedOption.value);
+        if (answerIndex === questions[currentQuestionIndex].answer) {
+            score += 10;  // Change the points per correct answer here
         }
     } else {
         alert("Please select an answer!");
+        return;
+    }
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion(); // Load the next question
+    } else {
+        document.getElementById("quizContainer").style.display = 'none';
+        document.getElementById("result").style.display = 'block';
+        document.getElementById("score").textContent = `Your score: ${score}`;
     }
 }
 
 function submitScore() {
+    // Add the player's name and score to the leaderboard
     leaderboard.push({ name: studentName, score: score });
-    leaderboard.sort((a, b) => b.score - a.score);
+    leaderboard.sort((a, b) => b.score - a.score);  // Sort leaderboard by highest score
 
+    // Store leaderboard in localStorage
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+
+    // Show updated leaderboard after submitting score
+    showLeaderboard();
+
+    document.getElementById("result").style.display = 'none';
+    document.getElementById("leaderboard").style.display = 'block';
+}
+
+function showLeaderboard() {
+    // Show top 5 players in the leaderboard
     let leaderboardHtml = '';
-    leaderboard.forEach(player => {
+    let topPlayers = leaderboard.slice(0, 5);  // Get top 5 players
+    topPlayers.forEach(player => {
         leaderboardHtml += `<li>${player.name}: ${player.score}</li>`;
     });
 
     document.getElementById("scoreBoard").innerHTML = leaderboardHtml;
-    document.getElementById("result").style.display = 'none';
-    document.getElementById("leaderboard").style.display = 'block';
 }
