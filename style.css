@@ -25,7 +25,7 @@ body {
     padding: 20px;
     width: 90%;
     max-width: 600px;
-    text-align: center;
+    text-align: left; /* Align all text left */
 }
 
 /* Title Styles */
@@ -67,6 +67,8 @@ button.btn:hover {
 /* Answers Section Styles */
 .answers-container {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .answers-container div {
